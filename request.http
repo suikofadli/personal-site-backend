@@ -1,0 +1,195 @@
+### Laravel Personal Site Backend API Tests
+### Base URL: http://127.0.0.1:8000/api
+
+### ==============================================
+### CATEGORIES API ENDPOINTS
+### ==============================================
+
+### 1. Get all categories
+GET http://127.0.0.1:8000/api/categories
+Content-Type: application/json
+
+###
+
+### 2. Create a new category
+POST http://127.0.0.1:8000/api/categories
+Content-Type: application/json
+
+{
+    "name": "Mobile Development",
+    "description": "Articles about mobile app development for iOS and Android"
+}
+
+###
+
+### 3. Get a specific category by ID
+GET http://127.0.0.1:8000/api/categories/1
+Content-Type: application/json
+
+###
+
+### 4. Update a category
+PUT http://127.0.0.1:8000/api/categories/1
+Content-Type: application/json
+
+{
+    "name": "Technology & Innovation",
+    "description": "Updated description for technology category"
+}
+
+###
+
+### 5. Delete a category
+DELETE http://127.0.0.1:8000/api/categories/6
+Content-Type: application/json
+
+###
+
+### ==============================================
+### ARTICLES API ENDPOINTS
+### ==============================================
+
+### 6. Get all articles (with pagination)
+GET http://127.0.0.1:8000/api/articles
+Content-Type: application/json
+
+###
+
+### 7. Get articles with filters
+GET http://127.0.0.1:8000/api/articles?category_id=1&published=true&search=Laravel&per_page=5
+Content-Type: application/json
+
+###
+
+### 8. Create a new article
+POST http://127.0.0.1:8000/api/articles
+Content-Type: application/json
+
+{
+    "title": "Getting Started with Vue.js 3",
+    "excerpt": "A comprehensive guide to building modern web applications with Vue.js 3",
+    "content": "<h2>Introduction to Vue.js 3</h2><p>Vue.js 3 is the latest version of the popular JavaScript framework...</p><p>In this article, we'll explore the new features and improvements that make Vue.js 3 a powerful choice for modern web development.</p>",
+    "category_id": 4,
+    "is_published": true
+}
+
+###
+
+### 9. Get a specific article by ID
+GET http://127.0.0.1:8000/api/articles/1
+Content-Type: application/json
+
+###
+
+### 10. Update an article
+PUT http://127.0.0.1:8000/api/articles/1
+Content-Type: application/json
+
+{
+    "title": "Laravel 11: Complete Guide to Modern PHP Development",
+    "excerpt": "Updated comprehensive guide covering all new features in Laravel 11",
+    "content": "<h2>Laravel 11 New Features</h2><p>Laravel 11 introduces several exciting new features...</p><p>This updated guide covers everything you need to know about Laravel 11.</p>",
+    "category_id": 3,
+    "is_published": true
+}
+
+###
+
+### 11. Delete an article
+DELETE http://127.0.0.1:8000/api/articles/6
+Content-Type: application/json
+
+###
+
+### ==============================================
+### ADDITIONAL ENDPOINTS
+### ==============================================
+
+### 12. Get only published articles
+GET http://127.0.0.1:8000/api/articles/published
+Content-Type: application/json
+
+###
+
+### 13. Get articles by category
+GET http://127.0.0.1:8000/api/categories/1/articles
+Content-Type: application/json
+
+###
+
+### 14. Search articles by title/content
+GET http://127.0.0.1:8000/api/articles?search=JavaScript
+Content-Type: application/json
+
+###
+
+### 15. Get articles with pagination
+GET http://127.0.0.1:8000/api/articles?page=2&per_page=3
+Content-Type: application/json
+
+###
+
+### ==============================================
+### ERROR TESTING
+### ==============================================
+
+### 16. Test validation errors - Create category without required fields
+POST http://127.0.0.1:8000/api/categories
+Content-Type: application/json
+
+{
+    "description": "Category without name should fail"
+}
+
+###
+
+### 17. Test validation errors - Create article without required fields
+POST http://127.0.0.1:8000/api/articles
+Content-Type: application/json
+
+{
+    "excerpt": "Article without title should fail"
+}
+
+###
+
+### 18. Test 404 error - Get non-existent category
+GET http://127.0.0.1:8000/api/categories/999
+Content-Type: application/json
+
+###
+
+### 19. Test 404 error - Get non-existent article
+GET http://127.0.0.1:8000/api/articles/999
+Content-Type: application/json
+
+###
+
+### ==============================================
+### SAMPLE DATA FOR TESTING
+### ==============================================
+
+### 20. Create sample category for testing
+POST http://127.0.0.1:8000/api/categories
+Content-Type: application/json
+
+{
+    "name": "DevOps & Cloud",
+    "description": "Articles about DevOps practices, cloud computing, and infrastructure"
+}
+
+###
+
+### 21. Create sample article with rich content (Tiptap compatible)
+POST http://127.0.0.1:8000/api/articles
+Content-Type: application/json
+
+{
+    "title": "Docker Best Practices for Laravel Applications",
+    "excerpt": "Learn how to containerize your Laravel applications effectively using Docker",
+    "content": "<h2>Introduction to Docker</h2><p>Docker has revolutionized the way we deploy and manage applications. In this comprehensive guide, we'll explore how to effectively use Docker with Laravel applications.</p><h3>Setting Up Docker Environment</h3><p>First, let's create a proper Docker setup for our Laravel application:</p><pre><code>FROM php:8.2-fpm\n\n# Install dependencies\nRUN apt-get update && apt-get install -y \\\n    git \\\n    curl \\\n    libpng-dev \\\n    libonig-dev \\\n    libxml2-dev \\\n    zip \\\n    unzip</code></pre><h3>Best Practices</h3><ul><li>Use multi-stage builds to reduce image size</li><li>Implement proper caching strategies</li><li>Configure environment variables securely</li><li>Set up proper logging and monitoring</li></ul><p>Following these practices will ensure your Laravel application runs smoothly in production environments.</p>",
+    "category_id": 1,
+    "is_published": true
+}
+
+###
